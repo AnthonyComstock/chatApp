@@ -29,15 +29,15 @@ public class Client {
         while(true){
             String line = in.readLine();
             System.out.println(line);
-            if(line == "USERNAME"){
+            if(line.compareTo("USERNAME")==0){
                 System.out.println("enter username and password:");
                 out.println("/login " + read.readLine());
             } else {
-                String message = read.readLine();
-                if(message != null)
-                {
-                    out.println(message);
-                }
+
+                    String message = read.readLine();
+                    if (message != null) {
+                        out.println(message);
+                    }
             }
         }
     }
