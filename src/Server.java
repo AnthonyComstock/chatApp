@@ -2,6 +2,8 @@
  * Created by Antho on 5/25/2017.
  */
 
+//TODO: change the way that the messages work by writing them to a file and then presenting that file to the client
+
 import java.io.*;
 import java.util.Hashtable;
 import java.net.ServerSocket;
