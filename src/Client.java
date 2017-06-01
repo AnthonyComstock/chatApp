@@ -27,18 +27,22 @@ public class Client {
         out = new PrintWriter(socket.getOutputStream(),true);
 
         while(true){
-            String line = in.readLine();
-            System.out.println(line);
-            if(line.compareTo("USERNAME")==0){
-                System.out.println("enter username and password:");
-                out.println("/login " + read.readLine());
-            } else {
-
+                    while(!read.ready())
+                    {
+                        if(in.ready()) {
+                            String line = in.readLine();
+                            if(line.compareTo("USERNAME")==0){
+                                System.out.println("enter username and password:");
+                                out.println("/login " + read.readLine());
+                            }else {
+                                System.out.println(line);
+                            }
+                        }
+                    }
                     String message = read.readLine();
                     if (message != null) {
                         out.println(message);
                     }
-            }
         }
     }
     public static void main(String[] args) {
