@@ -68,7 +68,7 @@ public class Server {
             }
 
             while(true){
-                String id = "USERNAME";
+                String id = "/USERNAME";
                 out.println(id);
                 try {
                     userLogin = in.readLine();
@@ -80,14 +80,14 @@ public class Server {
                     {
                         if(tag.compareTo("/create") == 0)
                         {
-                            synchronized(users) {
-                                if (!users.containsKey(uname)) {
-                                    synchronized (namePassword) {
+                            synchronized(namePassword) {
+                                if (!namePassword.containsKey(uname)) {
                                         namePassword.put(uname, password);
                                         accounts.writeAccounts(namePassword);
-                                    }
                                 } else {
                                     System.out.println("name taken");
+                                    out.print("/BADNAME");
+                                    return;
                                 }
                             }
                         }
@@ -127,17 +127,35 @@ public class Server {
                 }
             }
 
-            out.println("NAMEACCEPT");
+            out.println("/NAMEACCEPT");
             while(true){
                 try {
                     if(in.ready()) {
                         String input = in.readLine();
-                        synchronized (users) {
-                            Enumeration e = users.keys();
-                            while (e.hasMoreElements()) {
-                                String next = (String) e.nextElement();
-                                if (next != uname) {
-                                    users.get(next).println(uname + ": " + input);
+                        if(input.split(" ")[0].compareTo("/message")==0) {
+                            input = input.replaceFirst("/message","");
+                            synchronized (users) {
+                                Enumeration e = users.keys();
+                                while (e.hasMoreElements()) {
+                                    String next = (String) e.nextElement();
+                                    if (next != uname) {
+                                        users.get(next).println(uname + ": " + input);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            String pm = input.split(" ")[0];
+                            input = input.replaceFirst(pm,"");
+                            pm = pm.replace("/","");
+                            synchronized (users) {
+                                Enumeration e = users.keys();
+                                while (e.hasMoreElements()) {
+                                    String next = (String) e.nextElement();
+                                    if (next.compareTo(pm) == 0) {
+                                        users.get(next).println(uname + ": " + input);
+                                    }
                                 }
                             }
                         }
