@@ -13,6 +13,7 @@ public class Client {
     BufferedReader in;
     PrintWriter out;
     String name;
+    boolean loggedIn = false;
 
     BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
@@ -27,16 +28,44 @@ public class Client {
         out = new PrintWriter(socket.getOutputStream(),true);
 
         while(true){
+            while(!loggedIn){
+                //while not logged in
+                String line = in.readLine();
+                //poll for username and password
+                if(line.compareTo("/BADNAME") == 0)
+                {
+                    System.out.println("wrong username or password or the username was taken");
+                    line = "/USERNAAME";
+                }
+                if(line.compareTo("/USERNAME")==0){
+                    System.out.println("login or create account:");
+                    String response;
+                    //response will be turned into a button press to avoid ambiguous answers
+                    response = read.readLine();
+                    //if a username needs to be created
+                    if(response.compareTo("/create") == 0)
+                    {
+                        System.out.println("enter new username and password:");
+                        String accountInfo = read.readLine();
+                        out.println("/create " + accountInfo);
+                    }
+                    //else entering a valid username, this will be abstracted by the GUI so there
+                    //is no other options
+                    else {
+                        System.out.println("enter username and password:");
+                        out.println("/login " + read.readLine());
+                    }
+                }
+                if(line.compareTo("/NAMEACCEPT") == 0)
+                {
+                    loggedIn = true;
+                }
+            }
                     while(!read.ready())
                     {
                         if(in.ready()) {
                             String line = in.readLine();
-                            if(line.compareTo("USERNAME")==0){
-                                System.out.println("enter username and password:");
-                                out.println("/login " + read.readLine());
-                            }else {
-                                System.out.println(line);
-                            }
+                            System.out.println(line);
                         }
                     }
                     String message = read.readLine();
