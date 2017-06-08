@@ -17,7 +17,12 @@ public class Accounts {
 
     public Accounts(String filename) throws FileNotFoundException{
             in = new File(filename);
-            this.filename = filename;
+        try {
+            in.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.filename = filename;
 
     }
 
