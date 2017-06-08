@@ -76,6 +76,11 @@ public class Client {
                     }
                     String message = read.readLine();
                     if (message != null) {
+                        if(message.compareTo("/exit") == 0)
+                        {
+                            out.println(message);
+                            break;
+                        }
                         out.println(message);
                     }
         }
