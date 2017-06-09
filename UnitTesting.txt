@@ -1,0 +1,19 @@
+Unit Tests
+
+Test 1 general message
+	inputs:{boDuce: hi, bobMK2: hi, another: hi}
+	expected outputs:{hi,hi,hi}
+This is what happend and in the history file labled historyUT2.txt you can
+see that this was stored.
+
+Test 2 personal message
+	inputs:{bob: /bo is it though}
+	expected outputs:{is it though}
+This is what happend and in the file boUserUnitTest.txt this is what was recorded, there were three users
+present at the time bob, bo, and bill and only bo recieved the personal message as expected.
+
+Test 3 loggedin
+	inputs:{bob2: /loggedin}
+	expected outputs:{bob2, dr.evil}
+this is exactly what happened I had bob2 and dr.evil logged in and on bob2 typing / loggedin displayed
+bob2 and dr.evil.
