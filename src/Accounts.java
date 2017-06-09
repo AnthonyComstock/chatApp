@@ -16,6 +16,7 @@ public class Accounts {
 
 
     public Accounts(String filename) throws FileNotFoundException{
+        //if the file exists grab it or else make it.
             in = new File(filename);
         try {
             in.createNewFile();
@@ -27,6 +28,8 @@ public class Accounts {
     }
 
     public Hashtable<String,String> fillHash() throws FileNotFoundException{
+        //create a hashtable full of all of the entries in the account.txt file
+        //return that out.
         Hashtable<String,String> hash = new Hashtable<String,String>();
         sc = new Scanner(in);
         while(sc.hasNextLine())
@@ -40,6 +43,7 @@ public class Accounts {
     }
 
     public void writeAccounts(Hashtable<String,String> hash) throws IOException{
+        //rewrite the account.txt file with any new information from the hash.
         Enumeration e = hash.keys();
         FileWriter fWrite = new FileWriter(in);
         PrintWriter pWrite = new PrintWriter(fWrite);

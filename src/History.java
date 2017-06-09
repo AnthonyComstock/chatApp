@@ -11,6 +11,8 @@ public class History {
     BufferedWriter bw;
 
     public History(String fileName){
+        //try to find the file if it does not
+        //exist make it
         history = new File(fileName);
             try {
                 history.createNewFile();
@@ -21,6 +23,8 @@ public class History {
     }
 
     public boolean write(String message){
+        //create a file writer and buffered writer and write
+        //the message to file then close it, return true on sucess
         try {
             fw = new FileWriter(history, true);
         } catch (IOException e) {
@@ -46,6 +50,8 @@ public class History {
     }
 
     public boolean read(PrintWriter out){
+        //create file reader and buffered reader and read out all of the
+        //contents of the file to a passed in print writer then close the file.
         try {
             fr = new FileReader(history);
         } catch (FileNotFoundException e) {
