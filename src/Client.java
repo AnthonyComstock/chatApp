@@ -43,7 +43,9 @@ public class Client {
                     System.out.println("wrong username or password or the username was taken");
                     line = "/USERNAAME";
                 }
+                //if we get the username token
                 if(line.compareTo("/USERNAME")==0){
+                    //prompt user
                     System.out.println("login or create account:");
                     String response;
                     //response will be turned into a button press to avoid ambiguous answers
@@ -62,25 +64,33 @@ public class Client {
                         out.println("/login " + read.readLine());
                     }
                 }
+                //if we are logged in
                 if(line.compareTo("/NAMEACCEPT") == 0)
                 {
                     loggedIn = true;
                 }
             }
+            //enter message loop
+            //while there is not a message
                     while(!read.ready())
                     {
+                        //if there is something to read read it
                         if(in.ready()) {
                             String line = in.readLine();
                             System.out.println(line);
                         }
                     }
+                    //poll for a message from this user
                     String message = read.readLine();
+                    //if there is one
                     if (message != null) {
+                        //if it is exit then exit
                         if(message.compareTo("/exit") == 0)
                         {
                             out.println(message);
                             break;
                         }
+                        //send it to the server
                         out.println(message);
                     }
         }
